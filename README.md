@@ -26,14 +26,6 @@ Akun contoh (password `jejak123`):
 - Admin (SC): `raka.pratama`
 - Pemandu Kelompok 04: `daffa.prakoso`
 
-## Membuat .exe
-
-```
-dotnet publish src/Jejak.App -p:PublishProfile=win-x64
-```
-
-Hasilnya adalah satu berkas `publish/JEJAK.exe` (self-contained, tidak memerlukan instalasi .NET).
-
 ## Pengujian
 
 ```
