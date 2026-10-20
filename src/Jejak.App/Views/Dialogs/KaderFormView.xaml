@@ -1,0 +1,56 @@
+<UserControl x:Class="Jejak.App.Views.Dialogs.KaderFormView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="clr-namespace:Jejak.App.Controls">
+    <StackPanel>
+        <StackPanel Margin="28,22,28,0">
+            <TextBlock Style="{StaticResource Text.Label}"><Run Text="NRP" /><Run Foreground="{DynamicResource Brush.Danger}" Text=" *" /></TextBlock>
+            <TextBox c:Hint.HasError="{Binding NrpGalat, Converter={StaticResource AdaKeBool}}" c:Hint.Text="10 digit, mis. 5025251001" Style="{StaticResource Input}" Text="{Binding Nrp, UpdateSourceTrigger=PropertyChanged}" MaxLength="10" />
+            <TextBlock Style="{StaticResource Text.Error}" Text="{Binding NrpGalat}" Visibility="{Binding NrpGalat, Converter={StaticResource AdaKeVisibility}}" />
+            <Border Height="18" />
+            <TextBlock Style="{StaticResource Text.Label}"><Run Text="Nama lengkap" /><Run Foreground="{DynamicResource Brush.Danger}" Text=" *" /></TextBlock>
+            <TextBox c:Hint.HasError="{Binding NamaGalat, Converter={StaticResource AdaKeBool}}" c:Hint.Text="Nama sesuai data akademik" Style="{StaticResource Input}" Text="{Binding Nama, UpdateSourceTrigger=PropertyChanged}" MaxLength="100" />
+            <TextBlock Style="{StaticResource Text.Error}" Text="{Binding NamaGalat}" Visibility="{Binding NamaGalat, Converter={StaticResource AdaKeVisibility}}" />
+            <Border Height="18" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="16" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <TextBlock Style="{StaticResource Text.Label}"><Run Text="Angkatan" /><Run Foreground="{DynamicResource Brush.Danger}" Text=" *" /></TextBlock>
+                    <ComboBox DisplayMemberPath="Label" ItemsSource="{Binding AngkatanOpsi}" SelectedItem="{Binding AngkatanDipilih}" />
+                </StackPanel>
+                <StackPanel Grid.Column="2">
+                    <TextBlock Style="{StaticResource Text.Label}"><Run Text="Kelompok" /><Run Foreground="{DynamicResource Brush.Danger}" Text=" *" /></TextBlock>
+                    <ComboBox DisplayMemberPath="Label" ItemsSource="{Binding KelompokOpsi}" SelectedItem="{Binding KelompokDipilih}" />
+                    <TextBlock Style="{StaticResource Text.Error}" Text="{Binding KelompokGalat}" Visibility="{Binding KelompokGalat, Converter={StaticResource AdaKeVisibility}}" />
+                </StackPanel>
+            </Grid>
+            <Border Height="18" />
+            <TextBlock Style="{StaticResource Text.Label}"><Run Text="Kontak (opsional)" /></TextBlock>
+            <TextBox c:Hint.HasError="{Binding KontakGalat, Converter={StaticResource AdaKeBool}}" c:Hint.Icon="{StaticResource Icon.Mail}" c:Hint.Text="Nomor WhatsApp atau email" Style="{StaticResource Input}" Text="{Binding Kontak, UpdateSourceTrigger=PropertyChanged}" MaxLength="50" />
+            <TextBlock Style="{StaticResource Text.Error}" Text="{Binding KontakGalat}" Visibility="{Binding KontakGalat, Converter={StaticResource AdaKeVisibility}}" />
+            <TextBlock Margin="0,6,0,0" Style="{StaticResource Text.Faint}" Text="Hanya digunakan untuk koordinasi pemandu." />
+            <Border Margin="0,18,0,0" Padding="16,12" Background="{DynamicResource Brush.Surface2}" CornerRadius="10">
+                <Grid>
+                    <StackPanel>
+                        <TextBlock FontWeight="SemiBold" Text="Status aktif" />
+                        <TextBlock Margin="0,2,0,0" Style="{StaticResource Text.Caption}" Text="Kader nonaktif tidak dihitung dalam statistik dan tidak dapat menerima pengumpulan." TextWrapping="Wrap" />
+                    </StackPanel>
+                    <CheckBox HorizontalAlignment="Right" IsChecked="{Binding Aktif}" Style="{StaticResource Toggle}" />
+                </Grid>
+            </Border>
+        </StackPanel>
+        <Border Margin="28,14,28,0" Padding="12,10" Background="{DynamicResource Brush.DangerBg}" CornerRadius="10" Visibility="{Binding GalatUmum, Converter={StaticResource AdaKeVisibility}}">
+            <TextBlock FontSize="13" FontWeight="Medium" Foreground="{DynamicResource Brush.Danger}" Text="{Binding GalatUmum}" TextWrapping="Wrap" />
+        </Border>
+        <Border Margin="0,22,0,0" BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,1,0,0">
+            <StackPanel Margin="28,16,28,22" HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button Command="{Binding BatalCommand}" Content="Batal" Style="{StaticResource Btn.Secondary}" />
+                <Button Margin="10,0,0,0" Command="{Binding SimpanCommand}" Content="{Binding TombolSimpan}" IsDefault="True" IsEnabled="{Binding SedangMenyimpan, Converter={StaticResource BoolBalik}}" Style="{StaticResource Btn.Primary}" Tag="{StaticResource Icon.Save}" />
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</UserControl>

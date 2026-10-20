@@ -1,0 +1,76 @@
+<UserControl x:Class="Jejak.App.Views.Pages.KelompokView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="clr-namespace:Jejak.App.Controls">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300" />
+                <ColumnDefinition Width="280" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBox c:Hint.Icon="{StaticResource Icon.Search}" c:Hint.Text="Cari kelompok atau pemandu…" Style="{StaticResource Input}" Text="{Binding Cari, UpdateSourceTrigger=PropertyChanged, Delay=150}" />
+            <ComboBox Grid.Column="1" Margin="12,0,0,0" DisplayMemberPath="Label" ItemsSource="{Binding UrutanOpsi}" SelectedItem="{Binding UrutanDipilih}" />
+            <Button Grid.Column="3" Command="{Binding TambahCommand}" Content="Tambah Kelompok" Style="{StaticResource Btn.Primary}" Tag="{StaticResource Icon.Plus}" />
+        </Grid>
+
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <ItemsControl Margin="-10,0" Focusable="False" ItemsSource="{Binding Kartu}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate><UniformGrid Columns="4" /></ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="10,0,10,20" Padding="20,18" Style="{StaticResource Card}">
+                            <StackPanel>
+                                <Grid>
+                                    <StackPanel>
+                                        <TextBlock Style="{StaticResource Text.Kecil}" Text="{Binding Data.LabelPendek}" />
+                                        <TextBlock Margin="0,4,0,0" FontSize="18" FontWeight="Bold" Text="{Binding Data.Nama}" TextTrimming="CharacterEllipsis" />
+                                    </StackPanel>
+                                    <StackPanel Margin="0,-6,-8,0" HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal">
+                                        <Button Command="{Binding DataContext.UbahCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}" Style="{StaticResource Btn.Icon}" Tag="{StaticResource Icon.Edit}" ToolTip="Ubah kelompok" />
+                                        <Button Command="{Binding DataContext.HapusCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}" Style="{StaticResource Btn.Icon.Danger}" Tag="{StaticResource Icon.Trash}" ToolTip="Hapus kelompok" />
+                                    </StackPanel>
+                                </Grid>
+                                <c:Badge Margin="0,10,0,0" Kind="Danger" Text="{Binding BerisikoTeks}" Visibility="{Binding BerisikoTeks, Converter={StaticResource AdaKeVisibility}, ConverterParameter=sembunyi}" />
+                                <Grid Margin="0,16,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <ContentControl Width="28" Height="28" Content="{Binding Pemandu}" FontSize="11" Style="{StaticResource Avatar}" Visibility="{Binding AdaPemandu, Converter={StaticResource BoolKeVisibility}}" />
+                                    <TextBlock Grid.Column="1" Margin="10,0,8,0" VerticalAlignment="Center" FontSize="13" FontWeight="SemiBold" Text="{Binding Pemandu}" TextTrimming="CharacterEllipsis" />
+                                    <TextBlock Grid.Column="2" VerticalAlignment="Center" Style="{StaticResource Text.Caption}" Text="{Binding JumlahKaderTeks}" />
+                                </Grid>
+                                <Grid Margin="0,22,0,8">
+                                    <TextBlock Style="{StaticResource Text.Caption}" Text="Ketuntasan" />
+                                    <TextBlock HorizontalAlignment="Right" Style="{StaticResource Text.Caption}" Text="{Binding NilaiTeks}" />
+                                </Grid>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <ProgressBar x:Name="bar" VerticalAlignment="Center" Value="{Binding Ketuntasan, Mode=OneWay}" />
+                                    <TextBlock Grid.Column="1" Margin="10,0,0,0" FontSize="13" FontWeight="SemiBold" Text="{Binding KetuntasanTeks}" />
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding KetuntasanRendah}" Value="True">
+                                <Setter TargetName="bar" Property="Foreground" Value="{DynamicResource Brush.BarWarn}" />
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

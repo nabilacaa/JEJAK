@@ -1,0 +1,75 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Token warna tema gelap. Kunci harus sama di Light.xaml dan Dark.xaml;
+         seluruh style memakai DynamicResource sehingga tema dapat diganti saat aplikasi berjalan. -->
+    <Color x:Key="Color.Bg">#0B1020</Color>
+    <Color x:Key="Color.Surface">#131A2C</Color>
+    <Color x:Key="Color.Surface2">#182036</Color>
+    <Color x:Key="Color.Border">#232D45</Color>
+    <Color x:Key="Color.Border2">#2F3A56</Color>
+    <Color x:Key="Color.Text">#E8ECF6</Color>
+    <Color x:Key="Color.Muted">#97A3BD</Color>
+    <Color x:Key="Color.Faint">#66728E</Color>
+    <Color x:Key="Color.Accent">#6B8CFF</Color>
+    <Color x:Key="Color.AccentSoft">#1C2850</Color>
+    <Color x:Key="Color.AccentText">#9DB3FF</Color>
+    <Color x:Key="Color.OnAccent">#0B1020</Color>
+    <Color x:Key="Color.Side">#080C18</Color>
+    <Color x:Key="Color.Side2">#141C33</Color>
+    <Color x:Key="Color.SideText">#E6EBF7</Color>
+    <Color x:Key="Color.SideMuted">#7F8BA8</Color>
+    <Color x:Key="Color.SideBorder">#1A2238</Color>
+    <Color x:Key="Color.Success">#4ADE80</Color>
+    <Color x:Key="Color.SuccessBg">#11301F</Color>
+    <Color x:Key="Color.Warning">#FBBF24</Color>
+    <Color x:Key="Color.WarningBg">#33270C</Color>
+    <Color x:Key="Color.Danger">#F87171</Color>
+    <Color x:Key="Color.DangerBg">#3A1717</Color>
+    <Color x:Key="Color.Info">#8AA8FF</Color>
+    <Color x:Key="Color.InfoBg">#1A2650</Color>
+    <Color x:Key="Color.Neutral">#A6B0C5</Color>
+    <Color x:Key="Color.NeutralBg">#222B40</Color>
+    <Color x:Key="Color.BarWarn">#E0A53B</Color>
+    <Color x:Key="Color.Grid">#1E2740</Color>
+    <Color x:Key="Color.InputBg">#0F1526</Color>
+    <Color x:Key="Color.RowHover">#172038</Color>
+    <Color x:Key="Color.RowSelected">#1A2547</Color>
+    <Color x:Key="Color.Overlay">#99000000</Color>
+    <Color x:Key="Color.Shadow">#66000000</Color>
+    <Color x:Key="Color.Badge">#DC2626</Color>
+    <SolidColorBrush x:Key="Brush.Bg" Color="#0B1020" />
+    <SolidColorBrush x:Key="Brush.Surface" Color="#131A2C" />
+    <SolidColorBrush x:Key="Brush.Surface2" Color="#182036" />
+    <SolidColorBrush x:Key="Brush.Border" Color="#232D45" />
+    <SolidColorBrush x:Key="Brush.Border2" Color="#2F3A56" />
+    <SolidColorBrush x:Key="Brush.Text" Color="#E8ECF6" />
+    <SolidColorBrush x:Key="Brush.Muted" Color="#97A3BD" />
+    <SolidColorBrush x:Key="Brush.Faint" Color="#66728E" />
+    <SolidColorBrush x:Key="Brush.Accent" Color="#6B8CFF" />
+    <SolidColorBrush x:Key="Brush.AccentSoft" Color="#1C2850" />
+    <SolidColorBrush x:Key="Brush.AccentText" Color="#9DB3FF" />
+    <SolidColorBrush x:Key="Brush.OnAccent" Color="#0B1020" />
+    <SolidColorBrush x:Key="Brush.Side" Color="#080C18" />
+    <SolidColorBrush x:Key="Brush.Side2" Color="#141C33" />
+    <SolidColorBrush x:Key="Brush.SideText" Color="#E6EBF7" />
+    <SolidColorBrush x:Key="Brush.SideMuted" Color="#7F8BA8" />
+    <SolidColorBrush x:Key="Brush.SideBorder" Color="#1A2238" />
+    <SolidColorBrush x:Key="Brush.Success" Color="#4ADE80" />
+    <SolidColorBrush x:Key="Brush.SuccessBg" Color="#11301F" />
+    <SolidColorBrush x:Key="Brush.Warning" Color="#FBBF24" />
+    <SolidColorBrush x:Key="Brush.WarningBg" Color="#33270C" />
+    <SolidColorBrush x:Key="Brush.Danger" Color="#F87171" />
+    <SolidColorBrush x:Key="Brush.DangerBg" Color="#3A1717" />
+    <SolidColorBrush x:Key="Brush.Info" Color="#8AA8FF" />
+    <SolidColorBrush x:Key="Brush.InfoBg" Color="#1A2650" />
+    <SolidColorBrush x:Key="Brush.Neutral" Color="#A6B0C5" />
+    <SolidColorBrush x:Key="Brush.NeutralBg" Color="#222B40" />
+    <SolidColorBrush x:Key="Brush.BarWarn" Color="#E0A53B" />
+    <SolidColorBrush x:Key="Brush.Grid" Color="#1E2740" />
+    <SolidColorBrush x:Key="Brush.InputBg" Color="#0F1526" />
+    <SolidColorBrush x:Key="Brush.RowHover" Color="#172038" />
+    <SolidColorBrush x:Key="Brush.RowSelected" Color="#1A2547" />
+    <SolidColorBrush x:Key="Brush.Overlay" Color="#99000000" />
+    <SolidColorBrush x:Key="Brush.Shadow" Color="#66000000" />
+    <SolidColorBrush x:Key="Brush.Badge" Color="#DC2626" />
+</ResourceDictionary>

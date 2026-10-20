@@ -1,0 +1,74 @@
+<UserControl x:Class="Jejak.App.Views.Pages.LogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="clr-namespace:Jejak.App.Controls">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <!--  Filter log (FR-34)  -->
+        <Grid Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="240" />
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="160" />
+                <ColumnDefinition Width="160" />
+                <ColumnDefinition Width="160" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBox c:Hint.Icon="{StaticResource Icon.Search}" c:Hint.Text="Cari keterangan…" Style="{StaticResource Input}" Text="{Binding Cari, UpdateSourceTrigger=PropertyChanged, Delay=300}" />
+            <ComboBox Grid.Column="1" Margin="12,0,0,0" DisplayMemberPath="Label" ItemsSource="{Binding PenggunaOpsi}" SelectedItem="{Binding PenggunaDipilih}" />
+            <ComboBox Grid.Column="2" Margin="12,0,0,0" DisplayMemberPath="Label" ItemsSource="{Binding AksiOpsi}" SelectedItem="{Binding AksiDipilih}" />
+            <DatePicker Grid.Column="3" Margin="12,0,0,0" c:Hint.Text="Dari tanggal" SelectedDate="{Binding Dari}" ToolTip="Dari tanggal" />
+            <DatePicker Grid.Column="4" Margin="12,0,0,0" c:Hint.Text="Sampai tanggal" SelectedDate="{Binding Sampai}" ToolTip="Sampai tanggal" />
+            <StackPanel Grid.Column="6" Orientation="Horizontal">
+                <Button Command="{Binding ResetFilterCommand}" Content="Reset" Style="{StaticResource Btn.Ghost}" Tag="{StaticResource Icon.Refresh}" />
+                <Button Margin="8,0,0,0" Command="{Binding EksporCommand}" Content="Ekspor" Style="{StaticResource Btn.Secondary}" Tag="{StaticResource Icon.Download}" />
+            </StackPanel>
+        </Grid>
+
+        <Border Grid.Row="1" Style="{StaticResource Card.Flush}">
+            <DockPanel>
+                <Grid Height="56" Margin="20,0" DockPanel.Dock="Bottom">
+                    <TextBlock VerticalAlignment="Center" Style="{StaticResource Text.Caption}" Text="{Binding InfoHalaman}" />
+                    <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal">
+                        <Button Width="34" Height="34" Command="{Binding SebelumnyaCommand}" Style="{StaticResource Btn.Icon.Bordered}" Tag="{StaticResource Icon.ChevronLeft}" ToolTip="Sebelumnya" />
+                        <TextBlock Margin="12,0" VerticalAlignment="Center" FontSize="13" FontWeight="SemiBold">
+                            <Run Text="{Binding HalamanKe, Mode=OneWay}" /><Run Foreground="{DynamicResource Brush.Muted}" Text=" / " /><Run Foreground="{DynamicResource Brush.Muted}" Text="{Binding TotalHalaman, Mode=OneWay}" />
+                        </TextBlock>
+                        <Button Width="34" Height="34" Command="{Binding BerikutnyaCommand}" Style="{StaticResource Btn.Icon.Bordered}" Tag="{StaticResource Icon.ChevronRight}" ToolTip="Berikutnya" />
+                    </StackPanel>
+                </Grid>
+                <Border Style="{StaticResource Pemisah}" DockPanel.Dock="Bottom" />
+                <DataGrid Margin="8,0" ItemsSource="{Binding Tampil}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="180" Binding="{Binding Waktu}" ElementStyle="{StaticResource Text.Cell.Muted}" Header="WAKTU" />
+                        <DataGridTemplateColumn Width="220" Header="PENGGUNA">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <ContentControl Width="28" Height="28" Content="{Binding Nama}" FontSize="11" Style="{StaticResource Avatar}" />
+                                        <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" FontWeight="SemiBold" Text="{Binding Nama}" TextTrimming="CharacterEllipsis" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="130" Header="AKSI">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate><c:Badge Kind="{Binding AksiKind}" Text="{Binding Aksi}" /></DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Width="130" Binding="{Binding Entitas}" ElementStyle="{StaticResource Text.Cell.Muted}" Header="ENTITAS" />
+                        <DataGridTemplateColumn Width="*" Header="KETERANGAN">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate><TextBlock Style="{StaticResource Text.Cell}" Text="{Binding Keterangan}" ToolTip="{Binding Keterangan}" /></DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </Border>
+    </Grid>
+</UserControl>

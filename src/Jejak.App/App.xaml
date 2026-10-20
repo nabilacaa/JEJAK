@@ -1,0 +1,36 @@
+<Application x:Class="Jejak.App.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:Jejak.App.ViewModels"
+             xmlns:hal="clr-namespace:Jejak.App.Views.Pages"
+             xmlns:dlg="clr-namespace:Jejak.App.Views.Dialogs"
+             ShutdownMode="OnMainWindowClose">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!--  Indeks 0 adalah kamus warna; ThemeService menggantinya saat tema berubah.  -->
+                <ResourceDictionary Source="Themes/Light.xaml" />
+                <ResourceDictionary Source="Themes/Icons.xaml" />
+                <ResourceDictionary Source="Themes/Controls.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!--  Pemetaan ViewModel → View (navigasi berbasis DataTemplate).  -->
+            <DataTemplate DataType="{x:Type vm:DashboardViewModel}"><hal:DashboardView /></DataTemplate>
+            <DataTemplate DataType="{x:Type vm:KaderListViewModel}"><hal:KaderListView /></DataTemplate>
+            <DataTemplate DataType="{x:Type vm:KaderDetailViewModel}"><hal:KaderDetailView /></DataTemplate>
+            <DataTemplate DataType="{x:Type vm:KelompokViewModel}"><hal:KelompokView /></DataTemplate>
+            <DataTemplate DataType="{x:Type vm:PenugasanViewModel}"><hal:PenugasanView /></DataTemplate>
+            <DataTemplate DataType="{x:Type vm:PenilaianViewModel}"><hal:PenilaianView /></DataTemplate>
+            <DataTemplate DataType="{x:Type vm:RisikoViewModel}"><hal:RisikoView /></DataTemplate>
+            <DataTemplate DataType="{x:Type vm:LogViewModel}"><hal:LogView /></DataTemplate>
+            <DataTemplate DataType="{x:Type vm:PenggunaViewModel}"><hal:PenggunaView /></DataTemplate>
+            <DataTemplate DataType="{x:Type vm:PengaturanViewModel}"><hal:PengaturanView /></DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:KonfirmasiViewModel}"><dlg:KonfirmasiView /></DataTemplate>
+            <DataTemplate DataType="{x:Type vm:KaderFormViewModel}"><dlg:KaderFormView /></DataTemplate>
+            <DataTemplate DataType="{x:Type vm:KelompokFormViewModel}"><dlg:KelompokFormView /></DataTemplate>
+            <DataTemplate DataType="{x:Type vm:PenugasanFormViewModel}"><dlg:PenugasanFormView /></DataTemplate>
+            <DataTemplate DataType="{x:Type vm:PenggunaFormViewModel}"><dlg:PenggunaFormView /></DataTemplate>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

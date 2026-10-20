@@ -1,0 +1,199 @@
+<UserControl x:Class="Jejak.App.Views.Pages.PenilaianView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="clr-namespace:Jejak.App.Controls">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--  Pilih penugasan & kelompok + info  -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="320" />
+                <ColumnDefinition Width="290" />
+                <ColumnDefinition Width="24" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel VerticalAlignment="Bottom">
+                <TextBlock Style="{StaticResource Text.Label}" Text="Penugasan" />
+                <ComboBox DisplayMemberPath="Label" ItemsSource="{Binding PenugasanOpsi}" SelectedItem="{Binding PenugasanDipilih}" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Margin="14,0,0,0" VerticalAlignment="Bottom">
+                <TextBlock Style="{StaticResource Text.Label}" Text="Kelompok" />
+                <ComboBox DisplayMemberPath="Label" IsEnabled="{Binding IsAdmin}" ItemsSource="{Binding KelompokOpsi}" SelectedItem="{Binding KelompokDipilih}" />
+            </StackPanel>
+            <Border Grid.Column="3" Padding="18,10" Style="{StaticResource Card}">
+                <UniformGrid Columns="4">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource Text.Caption}" Text="Tenggat" />
+                        <TextBlock Margin="0,3,0,0" FontWeight="Bold" Text="{Binding InfoTenggat}" />
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource Text.Caption}" Text="Bobot" />
+                        <TextBlock Margin="0,3,0,0" FontWeight="Bold" Text="{Binding InfoBobot}" />
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource Text.Caption}" Text="Kategori" />
+                        <TextBlock Margin="0,3,0,0" FontWeight="Bold" Text="{Binding InfoKategori}" />
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource Text.Caption}" Text="Status" />
+                        <TextBlock Margin="0,3,0,0" FontWeight="Bold" Text="{Binding InfoStatus}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding InfoJatuhTempo}" Value="True">
+                                            <Setter Property="Foreground" Value="{DynamicResource Brush.Danger}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+                </UniformGrid>
+            </Border>
+        </Grid>
+
+        <!--  Ringkasan + aksi massal (FR-31)  -->
+        <Grid Grid.Row="1" Margin="0,18,0,12">
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                <c:Badge Margin="0,0,8,0" Kind="Success" Text="{Binding JumlahTepat, StringFormat='Tepat waktu {0}'}" />
+                <c:Badge Margin="0,0,8,0" Kind="Warning" Text="{Binding JumlahTerlambat, StringFormat='Terlambat {0}'}" />
+                <c:Badge Margin="0,0,8,0" Kind="Danger" Text="{Binding JumlahBelum, StringFormat='Belum mengumpulkan {0}'}" />
+                <c:Badge Kind="Info" Text="{Binding JumlahBelumDinilai, StringFormat='Belum dinilai {0}'}" />
+            </StackPanel>
+            <Button Height="36" HorizontalAlignment="Right" Command="{Binding TandaiTerkumpulCommand}" Content="{Binding TeksTandai}" FontSize="13" Style="{StaticResource Btn.Secondary}" Tag="{StaticResource Icon.Checkmark}" ToolTip="Tandai kader terpilih sebagai sudah mengumpulkan (waktu = sekarang)" />
+        </Grid>
+
+        <Border Grid.Row="2" Style="{StaticResource Card.Flush}">
+            <DockPanel>
+                <!--  Bilah simpan  -->
+                <Grid Margin="20,12" DockPanel.Dock="Bottom">
+                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                        <c:Icon Margin="0,0,10,0" Data="{StaticResource Icon.Info}" Foreground="{DynamicResource Brush.Info}" />
+                        <TextBlock VerticalAlignment="Center" FontSize="13" Foreground="{DynamicResource Brush.Muted}" Text="{Binding InfoSimpan}" />
+                    </StackPanel>
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                        <Button Command="{Binding BatalkanCommand}" Content="Batalkan" Style="{StaticResource Btn.Secondary}" />
+                        <Button Margin="10,0,0,0" Command="{Binding SimpanCommand}" Content="Simpan Semua" Style="{StaticResource Btn.Primary}" Tag="{StaticResource Icon.Save}" />
+                    </StackPanel>
+                </Grid>
+                <Border Style="{StaticResource Pemisah}" DockPanel.Dock="Bottom" />
+                <Grid>
+                    <TextBlock Margin="0,40" HorizontalAlignment="Center" VerticalAlignment="Top" Style="{StaticResource Text.Sub}" Text="{Binding PesanKosong}" Visibility="{Binding PesanKosong, Converter={StaticResource AdaKeVisibility}}" />
+                    <!--  Lembar penilaian (FR-27 s.d. FR-30): sel berisi kontrol input, bukan mode edit DataGrid.  -->
+                    <DataGrid Margin="8,0" ItemsSource="{Binding Baris}" KeyboardNavigation.TabNavigation="Cycle" RowHeight="56" SelectionMode="Single">
+                        <!--  Lebar kolom mengikuti desain S-08 (PRD v1.2): muat tanpa gulir horizontal mulai lebar jendela 1366 px.  -->
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Width="40">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsChecked="{Binding Dipilih, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Terkumpul, Converter={StaticResource BoolBalik}}" ToolTip="Pilih untuk ditandai terkumpul" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Width="116" Binding="{Binding Nrp}" ElementStyle="{StaticResource Text.Cell.Muted}" Header="NRP" />
+                            <DataGridTemplateColumn Width="*" MinWidth="136" Header="NAMA">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel VerticalAlignment="Center">
+                                            <TextBlock FontWeight="SemiBold" Text="{Binding Nama}" TextTrimming="CharacterEllipsis" ToolTip="{Binding Nama}" />
+                                            <TextBlock Style="{StaticResource Text.Faint}" Text="{Binding PenilaiTeks}" TextTrimming="CharacterEllipsis" Visibility="{Binding PenilaiTeks, Converter={StaticResource AdaKeVisibility}}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <!--  Status + tombol batalkan pengumpulan dalam satu kolom agar hemat ruang.  -->
+                            <DataGridTemplateColumn Width="196" Header="STATUS">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <c:Badge HorizontalAlignment="Left" VerticalAlignment="Center" Kind="{Binding StatusKind}" Text="{Binding StatusTeks}" />
+                                            <Button Width="28"
+                                                    Height="28"
+                                                    Margin="0,0,6,0"
+                                                    HorizontalAlignment="Right"
+                                                    Command="{Binding DataContext.BatalKumpulCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                    CommandParameter="{Binding}"
+                                                    Style="{StaticResource Btn.Icon}"
+                                                    Tag="{StaticResource Icon.Undo}"
+                                                    ToolTip="Batalkan pengumpulan"
+                                                    Visibility="{Binding Terkumpul, Converter={StaticResource BoolKeVisibility}}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="180" Header="WAKTU KUMPUL">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBox c:Hint.HasError="{Binding WaktuGalat}"
+                                                     c:Hint.Text="dd/mm/yyyy jj:mm"
+                                                     Style="{StaticResource Input.Cell}"
+                                                     Text="{Binding WaktuTeks, UpdateSourceTrigger=PropertyChanged}"
+                                                     ToolTip="Format: dd/mm/yyyy jj:mm"
+                                                     Visibility="{Binding Terkumpul, Converter={StaticResource BoolKeVisibility}}" />
+                                            <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource Brush.Faint}" Text="—" Visibility="{Binding Terkumpul, Converter={StaticResource BoolKeVisibility}, ConverterParameter=balik}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <!--  FR-39: tautan hasil tugas + tombol buka di browser  -->
+                            <DataGridTemplateColumn Width="1.3*" MinWidth="150" Header="TAUTAN TUGAS">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBox Padding="8,0,34,0"
+                                                     c:Hint.HasError="{Binding TautanGalat}"
+                                                     c:Hint.Text="Tempel tautan…"
+                                                     IsEnabled="{Binding Terkumpul}"
+                                                     MaxLength="500"
+                                                     Style="{StaticResource Input.Cell}"
+                                                     Text="{Binding TautanTeks, UpdateSourceTrigger=PropertyChanged}"
+                                                     ToolTip="{Binding TautanTooltip}" />
+                                            <Button Width="28"
+                                                    Height="28"
+                                                    Margin="0,0,3,0"
+                                                    HorizontalAlignment="Right"
+                                                    Command="{Binding DataContext.BukaTautanCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                    CommandParameter="{Binding}"
+                                                    Foreground="{DynamicResource Brush.AccentText}"
+                                                    Style="{StaticResource Btn.Icon}"
+                                                    Tag="{StaticResource Icon.External}"
+                                                    ToolTip="Buka tautan di browser"
+                                                    Visibility="{Binding TautanBisaDibuka, Converter={StaticResource BoolKeVisibility}}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="88" Header="NILAI">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Padding="4,0"
+                                                 TextAlignment="Center"
+                                                 c:Hint.HasError="{Binding NilaiGalat}"
+                                                 c:Hint.Text="0–100"
+                                                 FontWeight="SemiBold"
+                                                 IsEnabled="{Binding Terkumpul}"
+                                                 Style="{StaticResource Input.Cell}"
+                                                 Text="{Binding NilaiTeks, UpdateSourceTrigger=PropertyChanged}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="*" MinWidth="120" Header="CATATAN">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox c:Hint.Text="Tambah catatan…" IsEnabled="{Binding Terkumpul}" MaxLength="500" Style="{StaticResource Input.Cell}" Text="{Binding Catatan, UpdateSourceTrigger=PropertyChanged}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </DockPanel>
+        </Border>
+    </Grid>
+</UserControl>

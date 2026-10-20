@@ -1,0 +1,29 @@
+<Window x:Class="Jejak.App.Views.DialogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{Binding Judul}"
+        Width="{Binding Lebar}"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        SizeToContent="Height"
+        Style="{StaticResource Window.Base}"
+        WindowStartupLocation="CenterOwner"
+        WindowStyle="None">
+    <Border Margin="24" Background="{DynamicResource Brush.Surface}" BorderBrush="{DynamicResource Brush.Border}" BorderThickness="1" CornerRadius="18">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="28" Opacity="0.28" ShadowDepth="8" />
+        </Border.Effect>
+        <DockPanel>
+            <Grid Margin="28,24,20,0" Background="Transparent" DockPanel.Dock="Top" MouseLeftButtonDown="Header_MouseLeftButtonDown">
+                <StackPanel Margin="0,0,40,0">
+                    <TextBlock FontSize="20" FontWeight="Bold" Text="{Binding Judul}" TextWrapping="Wrap" />
+                    <TextBlock Margin="0,6,0,0" Style="{StaticResource Text.Sub}" Text="{Binding Subjudul}" Visibility="{Binding Subjudul, Converter={StaticResource AdaKeVisibility}}" />
+                </StackPanel>
+                <Button HorizontalAlignment="Right" VerticalAlignment="Top" Command="{Binding BatalCommand}" Style="{StaticResource Btn.Icon}" Tag="{StaticResource Icon.Close}" ToolTip="Tutup (Esc)" />
+            </Grid>
+            <ContentControl Content="{Binding}" Focusable="False" />
+        </DockPanel>
+    </Border>
+</Window>

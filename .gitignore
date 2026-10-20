@@ -1,0 +1,11 @@
+## .NET
+bin/
+obj/
+publish/
+*.user
+*.suo
+.vs/
+.vscode/
+TestResults/
+*.db
+*.db-journal

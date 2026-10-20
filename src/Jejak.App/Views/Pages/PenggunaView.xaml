@@ -1,0 +1,68 @@
+<UserControl x:Class="Jejak.App.Views.Pages.PenggunaView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="clr-namespace:Jejak.App.Controls">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300" />
+                <ColumnDefinition Width="190" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBox c:Hint.Icon="{StaticResource Icon.Search}" c:Hint.Text="Cari nama atau username…" Style="{StaticResource Input}" Text="{Binding Cari, UpdateSourceTrigger=PropertyChanged, Delay=150}" />
+            <ComboBox Grid.Column="1" Margin="12,0,0,0" DisplayMemberPath="Label" ItemsSource="{Binding PeranOpsi}" SelectedItem="{Binding PeranDipilih}" />
+            <TextBlock Grid.Column="2" Margin="16,0" VerticalAlignment="Center" Style="{StaticResource Text.Caption}" Text="{Binding Info}" />
+            <Button Grid.Column="3" Command="{Binding TambahCommand}" Content="Tambah Pengguna" Style="{StaticResource Btn.Primary}" Tag="{StaticResource Icon.Plus}" />
+        </Grid>
+
+        <Border Grid.Row="1" Style="{StaticResource Card.Flush}">
+            <DataGrid Margin="8,0" ItemsSource="{Binding Tampil}">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Width="*" MinWidth="200" Header="NAMA">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <ContentControl Content="{Binding Data.Nama}" Style="{StaticResource Avatar}" />
+                                    <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" FontWeight="SemiBold" Text="{Binding Data.Nama}" />
+                                    <c:Badge Margin="8,0,0,0" Kind="Info" ShowDot="False" Text="Anda" Visibility="{Binding DiriSendiri, Converter={StaticResource BoolKeVisibility}}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Width="190" Binding="{Binding Data.Username}" ElementStyle="{StaticResource Text.Cell.Muted}" Header="USERNAME" />
+                    <DataGridTemplateColumn Width="140" Header="PERAN">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate><c:Badge Kind="{Binding PeranKind}" Text="{Binding PeranTeks}" /></DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Width="230" Binding="{Binding Kelompok}" ElementStyle="{StaticResource Text.Cell}" Header="KELOMPOK BINAAN" />
+                    <DataGridTemplateColumn Width="90" Header="AKTIF">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox Command="{Binding DataContext.UbahAktifCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                          CommandParameter="{Binding}"
+                                          IsChecked="{Binding Data.Aktif, Mode=OneWay}"
+                                          IsEnabled="{Binding DiriSendiri, Converter={StaticResource BoolBalik}}"
+                                          Style="{StaticResource Toggle}"
+                                          ToolTip="Aktifkan/nonaktifkan akun" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Width="150" Binding="{Binding LoginTeks}" ElementStyle="{StaticResource Text.Cell.Muted}" Header="LOGIN TERAKHIR" />
+                    <DataGridTemplateColumn Width="64">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button HorizontalAlignment="Right" Command="{Binding DataContext.UbahCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}" Style="{StaticResource Btn.Icon}" Tag="{StaticResource Icon.Edit}" ToolTip="Ubah akun" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+    </Grid>
+</UserControl>

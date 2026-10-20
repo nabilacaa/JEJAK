@@ -1,0 +1,189 @@
+<UserControl x:Class="Jejak.App.Views.Pages.RisikoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="clr-namespace:Jejak.App.Controls">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--  Penjelasan kriteria (BR-05)  -->
+        <Border Padding="18,14" Background="{DynamicResource Brush.WarningBg}" CornerRadius="12">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <c:Icon Margin="0,1,12,0" VerticalAlignment="Top" Data="{StaticResource Icon.Info}" Foreground="{DynamicResource Brush.Warning}" />
+                <StackPanel Grid.Column="1">
+                    <TextBlock FontSize="13.5" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Warning}" Text="Kader ditandai berisiko bila memenuhi minimal satu kriteria. Ambang dapat diubah Admin di Pengaturan." TextWrapping="Wrap" />
+                    <TextBlock Margin="0,4,0,0" FontSize="13" FontWeight="Medium" Foreground="{DynamicResource Brush.Warning}" Text="{Binding KeteranganAmbang}" TextWrapping="Wrap" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <UniformGrid Grid.Row="1" Margin="-10,20,-10,20" Columns="4">
+            <Border Margin="10,0" Padding="18,16" Style="{StaticResource Card}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Border Width="38" Height="38" VerticalAlignment="Top" Background="{DynamicResource Brush.DangerBg}" CornerRadius="10">
+                        <c:Icon Data="{StaticResource Icon.Alert}" Foreground="{DynamicResource Brush.Danger}" />
+                    </Border>
+                    <StackPanel Grid.Column="1" Margin="14,0,0,0">
+                        <TextBlock FontWeight="Medium" Style="{StaticResource Text.Caption}" Text="Total berisiko" TextTrimming="CharacterEllipsis" />
+                        <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                            <TextBlock FontSize="26" FontWeight="Bold" Text="{Binding Total}" />
+                            <TextBlock Margin="10,0,0,5" VerticalAlignment="Bottom" Style="{StaticResource Text.Caption}" Text="{Binding SubTotal}" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <Border Margin="10,0" Padding="18,16" Style="{StaticResource Card}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Border Width="38" Height="38" VerticalAlignment="Top" Background="{DynamicResource Brush.DangerBg}" CornerRadius="10">
+                        <c:Icon Data="{StaticResource Icon.Clipboard}" Foreground="{DynamicResource Brush.Danger}" />
+                    </Border>
+                    <StackPanel Grid.Column="1" Margin="14,0,0,0">
+                        <TextBlock FontWeight="Medium" Style="{StaticResource Text.Caption}" Text="R1 · Belum mengumpulkan" TextTrimming="CharacterEllipsis" />
+                        <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                            <TextBlock FontSize="26" FontWeight="Bold" Text="{Binding JumlahR1}" />
+                            <TextBlock Margin="10,0,0,5" VerticalAlignment="Bottom" Style="{StaticResource Text.Caption}" Text="{Binding SubR1}" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <Border Margin="10,0" Padding="18,16" Style="{StaticResource Card}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Border Width="38" Height="38" VerticalAlignment="Top" Background="{DynamicResource Brush.WarningBg}" CornerRadius="10">
+                        <c:Icon Data="{StaticResource Icon.Trend}" Foreground="{DynamicResource Brush.Warning}" />
+                    </Border>
+                    <StackPanel Grid.Column="1" Margin="14,0,0,0">
+                        <TextBlock FontWeight="Medium" Style="{StaticResource Text.Caption}" Text="R2 · Ketuntasan rendah" TextTrimming="CharacterEllipsis" />
+                        <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                            <TextBlock FontSize="26" FontWeight="Bold" Text="{Binding JumlahR2}" />
+                            <TextBlock Margin="10,0,0,5" VerticalAlignment="Bottom" Style="{StaticResource Text.Caption}" Text="{Binding SubR2}" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <Border Margin="10,0" Padding="18,16" Style="{StaticResource Card}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Border Width="38" Height="38" VerticalAlignment="Top" Background="{DynamicResource Brush.WarningBg}" CornerRadius="10">
+                        <c:Icon Data="{StaticResource Icon.Check}" Foreground="{DynamicResource Brush.Warning}" />
+                    </Border>
+                    <StackPanel Grid.Column="1" Margin="14,0,0,0">
+                        <TextBlock FontWeight="Medium" Style="{StaticResource Text.Caption}" Text="R3 · Nilai rendah" TextTrimming="CharacterEllipsis" />
+                        <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                            <TextBlock FontSize="26" FontWeight="Bold" Text="{Binding JumlahR3}" />
+                            <TextBlock Margin="10,0,0,5" VerticalAlignment="Bottom" Style="{StaticResource Text.Caption}" Text="{Binding SubR3}" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </UniformGrid>
+
+        <Grid Grid.Row="2" Margin="0,0,0,16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="280" />
+                <ColumnDefinition Width="230" />
+                <ColumnDefinition Width="230" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBox c:Hint.Icon="{StaticResource Icon.Search}" c:Hint.Text="Cari kader…" Style="{StaticResource Input}" Text="{Binding Cari, UpdateSourceTrigger=PropertyChanged, Delay=150}" />
+            <ComboBox Grid.Column="1" Margin="12,0,0,0" DisplayMemberPath="Label" ItemsSource="{Binding KelompokOpsi}" SelectedItem="{Binding KelompokDipilih}" />
+            <ComboBox Grid.Column="2" Margin="12,0,0,0" DisplayMemberPath="Label" ItemsSource="{Binding KriteriaOpsi}" SelectedItem="{Binding KriteriaDipilih}" />
+            <Button Grid.Column="4" Command="{Binding EksporCommand}" Content="Ekspor CSV" Style="{StaticResource Btn.Secondary}" Tag="{StaticResource Icon.Download}" />
+        </Grid>
+
+        <Border Grid.Row="3" Style="{StaticResource Card.Flush}">
+            <Grid>
+                <TextBlock Margin="0,48" HorizontalAlignment="Center" VerticalAlignment="Top" Style="{StaticResource Text.Sub}" Text="{Binding PesanKosong}" Visibility="{Binding PesanKosong, Converter={StaticResource AdaKeVisibility}}" />
+                <DataGrid x:Name="Tabel" Margin="8,0" ItemsSource="{Binding Tampil}" MouseDoubleClick="Tabel_MouseDoubleClick" RowHeight="56">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Width="*" MinWidth="200" Header="KADER">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <ContentControl Content="{Binding Data.Nama}" Style="{StaticResource Avatar}" />
+                                        <StackPanel Margin="10,0,0,0" VerticalAlignment="Center">
+                                            <TextBlock FontWeight="SemiBold" Text="{Binding Data.Nama}" TextTrimming="CharacterEllipsis" />
+                                            <TextBlock Style="{StaticResource Text.Caption}" Text="{Binding Data.Nrp}" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Width="170" Binding="{Binding Data.KelompokLabel}" ElementStyle="{StaticResource Text.Cell}" Header="KELOMPOK" />
+                        <DataGridTextColumn Width="140" Binding="{Binding Data.PemanduNama}" ElementStyle="{StaticResource Text.Cell.Muted}" Header="PEMANDU" />
+                        <DataGridTemplateColumn Width="132" Header="BELUM KUMPUL" HeaderStyle="{StaticResource Header.Kanan}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock x:Name="t" HorizontalAlignment="Right" FontWeight="SemiBold" Text="{Binding Belum}" />
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding BelumBahaya}" Value="True"><Setter TargetName="t" Property="Foreground" Value="{DynamicResource Brush.Danger}" /></DataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="124" Header="KETUNTASAN" HeaderStyle="{StaticResource Header.Kanan}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock x:Name="t" HorizontalAlignment="Right" FontWeight="SemiBold" Text="{Binding KetuntasanTeks}" />
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding KetuntasanBahaya}" Value="True"><Setter TargetName="t" Property="Foreground" Value="{DynamicResource Brush.Danger}" /></DataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="124" Header="NILAI AKHIR" HeaderStyle="{StaticResource Header.Kanan}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock x:Name="t" HorizontalAlignment="Right" FontWeight="SemiBold" Text="{Binding NilaiTeks}" />
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding NilaiBahaya}" Value="True"><Setter TargetName="t" Property="Foreground" Value="{DynamicResource Brush.Danger}" /></DataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="150" Header="KRITERIA">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ItemsControl Focusable="False" ItemsSource="{Binding Kriteria}">
+                                        <ItemsControl.ItemsPanel><ItemsPanelTemplate><StackPanel Orientation="Horizontal" /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate><DataTemplate><c:Badge Margin="0,0,6,0" Kind="{Binding Kind}" ShowDot="False" Text="{Binding Kode}" /></DataTemplate></ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="120">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button HorizontalAlignment="Right" Command="{Binding DataContext.LihatCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}" Content="Lihat jejak →" Style="{StaticResource Btn.Link}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

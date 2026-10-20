@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Akses data: EF Core + SQLite, inisialisasi database dari jejak.sql,
+       dan implementasi seluruh layanan (aturan otorisasi dan log aktivitas). -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>Jejak.Data</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.11" />
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Jejak.Core\Jejak.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Skrip skema + data contoh, dijalankan saat database belum ada. -->
+    <EmbeddedResource Include="..\..\database\jejak.sql" LogicalName="Jejak.Data.jejak.sql" Link="Database\jejak.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Jejak.Tests" />
+  </ItemGroup>
+</Project>

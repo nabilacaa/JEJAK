@@ -1,0 +1,109 @@
+<Window x:Class="Jejak.App.Views.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:c="clr-namespace:Jejak.App.Controls"
+        Title="Masuk · JEJAK"
+        Width="1100"
+        Height="700"
+        MinWidth="900"
+        MinHeight="600"
+        Icon="/Assets/jejak.ico"
+        Style="{StaticResource Window.Base}"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="44*" />
+            <ColumnDefinition Width="56*" />
+        </Grid.ColumnDefinitions>
+
+        <!--  Panel identitas  -->
+        <Border Background="{DynamicResource Brush.Side}">
+            <Grid Margin="56,48">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <c:Logo Ukuran="44" />
+                <StackPanel Grid.Row="1" VerticalAlignment="Center">
+                    <TextBlock FontSize="34" FontWeight="Bold" Foreground="{DynamicResource Brush.SideText}" Text="Setiap langkah kader," />
+                    <TextBlock FontSize="34" FontWeight="Bold" Foreground="{DynamicResource Brush.SideText}" Text="tercatat jejaknya." />
+                    <TextBlock Margin="0,18,0,0"
+                               FontSize="15"
+                               Foreground="{DynamicResource Brush.SideMuted}"
+                               LineHeight="24"
+                               Text="Pantau penugasan, pengumpulan, dan penilaian kaderisasi dalam satu aplikasi."
+                               TextWrapping="Wrap" />
+                    <!--  Ilustrasi jejak  -->
+                    <Canvas Width="420" Height="150" Margin="0,40,0,0" HorizontalAlignment="Left">
+                        <Polyline Points="10,130 80,80 140,102 210,46 280,60 340,14"
+                                  Stroke="{DynamicResource Brush.SideBorder}"
+                                  StrokeDashArray="2 3"
+                                  StrokeThickness="2" />
+                        <Ellipse Canvas.Left="3" Canvas.Top="123" Width="14" Height="14" Fill="{DynamicResource Brush.Side2}" Stroke="{DynamicResource Brush.SideMuted}" StrokeThickness="1.5" />
+                        <Ellipse Canvas.Left="73" Canvas.Top="73" Width="14" Height="14" Fill="{DynamicResource Brush.Side2}" Stroke="{DynamicResource Brush.SideMuted}" StrokeThickness="1.5" />
+                        <Ellipse Canvas.Left="133" Canvas.Top="95" Width="14" Height="14" Fill="{DynamicResource Brush.Side2}" Stroke="{DynamicResource Brush.SideMuted}" StrokeThickness="1.5" />
+                        <Ellipse Canvas.Left="203" Canvas.Top="39" Width="14" Height="14" Fill="{DynamicResource Brush.Side2}" Stroke="{DynamicResource Brush.SideMuted}" StrokeThickness="1.5" />
+                        <Ellipse Canvas.Left="273" Canvas.Top="53" Width="14" Height="14" Fill="{DynamicResource Brush.Side2}" Stroke="{DynamicResource Brush.SideMuted}" StrokeThickness="1.5" />
+                        <Ellipse Canvas.Left="314" Canvas.Top="-12" Width="52" Height="52" Stroke="{DynamicResource Brush.Accent}" StrokeThickness="1.5" />
+                        <Ellipse Canvas.Left="326" Canvas.Top="0" Width="28" Height="28" Fill="{DynamicResource Brush.Accent}" />
+                    </Canvas>
+                </StackPanel>
+                <TextBlock Grid.Row="2" FontSize="12.5" Foreground="{DynamicResource Brush.SideMuted}" Text="v1.0 · ETS PBKK 2026" />
+            </Grid>
+        </Border>
+
+        <!--  Formulir login  -->
+        <Grid Grid.Column="1">
+            <Button Margin="0,24,24,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Command="{Binding GantiTemaCommand}"
+                    Style="{StaticResource Btn.Icon.Bordered}"
+                    Tag="{Binding Gelap, Converter={StaticResource PilihIkonTema}}"
+                    ToolTip="Ganti tema terang/gelap" />
+
+            <StackPanel Width="380" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock FontSize="28" FontWeight="Bold" Text="Masuk ke JEJAK" />
+                <TextBlock Margin="0,6,0,32" Style="{StaticResource Text.Sub}" Text="Gunakan akun yang diberikan oleh SC." />
+
+                <TextBlock Style="{StaticResource Text.Label}" Text="Username" />
+                <TextBox x:Name="KotakUsername"
+                         Height="46"
+                         c:Hint.Icon="{StaticResource Icon.User}"
+                         c:Hint.Text="mis. raka.pratama"
+                         Style="{StaticResource Input}"
+                         Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock Margin="0,20,0,7" Style="{StaticResource Text.Label}" Text="Password" />
+                <PasswordBox x:Name="KotakPassword"
+                             Height="46"
+                             c:Hint.Icon="{StaticResource Icon.Lock}"
+                             c:PasswordBoxAssist.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource Input.Password}" />
+
+                <CheckBox Margin="0,18,0,0" Content="Ingat username saya" IsChecked="{Binding IngatSaya}" />
+
+                <Button Height="48"
+                        Margin="0,22,0,0"
+                        HorizontalAlignment="Stretch"
+                        Command="{Binding MasukCommand}"
+                        Content="Masuk"
+                        FontSize="15"
+                        IsDefault="True"
+                        Style="{StaticResource Btn.Primary}" />
+
+                <Border Margin="0,16,0,0"
+                        Padding="14,11"
+                        Background="{DynamicResource Brush.DangerBg}"
+                        CornerRadius="10"
+                        Visibility="{Binding Galat, Converter={StaticResource AdaKeVisibility}}">
+                    <StackPanel Orientation="Horizontal">
+                        <c:Icon Margin="0,0,10,0" Data="{StaticResource Icon.Info}" Foreground="{DynamicResource Brush.Danger}" />
+                        <TextBlock VerticalAlignment="Center" FontSize="13.5" FontWeight="Medium" Foreground="{DynamicResource Brush.Danger}" Text="{Binding Galat}" TextWrapping="Wrap" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

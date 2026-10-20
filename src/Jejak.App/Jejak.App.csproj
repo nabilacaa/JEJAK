@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Antarmuka WPF (MVVM). Menghasilkan JEJAK.exe. -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>Jejak.App</RootNamespace>
+    <AssemblyName>JEJAK</AssemblyName>
+    <ApplicationIcon>Assets\jejak.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <!-- Mengizinkan build/publish dari mesin non-Windows (mis. CI). -->
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Jejak.Data\Jejak.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Fonts\*.otf" />
+    <Resource Include="Assets\jejak.ico" />
+    <Resource Include="Assets\jejak.png" />
+    <None Include="Fonts\OFL-Inter.txt" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>
