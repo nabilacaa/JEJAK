@@ -1,6 +1,6 @@
-# JEJAK — Jurnal Evaluasi dan Jejak Aktivitas Kader
+# JEJAK: Jurnal Evaluasi dan Jejak Aktivitas Kader
 
-Aplikasi desktop C# WPF (.NET 8, MVVM) untuk memantau penugasan, pengumpulan, dan penilaian kader. Tugas ETS PBKK — Rich UI.
+Aplikasi desktop C# WPF (.NET 8, MVVM) untuk memantau penugasan, pengumpulan, dan penilaian kader. Tugas ETS PBKK: Rich UI.
 
 ## Struktur
 
