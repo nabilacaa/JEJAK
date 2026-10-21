@@ -1,8 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk">
-  <!-- Domain: entitas, aturan bisnis (PRD Bagian 7), dan kontrak layanan.
-       Tidak bergantung pada UI maupun database sehingga mudah diuji. -->
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <RootNamespace>Jejak.Core</RootNamespace>
-  </PropertyGroup>
-</Project>
